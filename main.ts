@@ -1,26 +1,23 @@
-input.onLogoEvent(TouchButtonEvent.Pressed, function () {
-    music.playTone(262, music.beat(BeatFraction.Whole))
-})
-let y = 0
+let change = 1
 let x = 0
-let change = -1
+let y = 0
+let counter = 0
+let MAX = 24
 basic.forever(function () {
-    if (change == -1) {
-        change = 1
-        x = 0
-        y = 0
-    } else {
-        change = -1
-        x = 4
-        y = 4
-    }
-    for (let index = 0; index < 5; index++) {
-        for (let index = 0; index < 5; index++) {
-            led.plotBrightness(x, y, 255)
-            basic.pause(100)
-            led.plotBrightness(x, y, 0)
-            x = x + change
+    if (counter == MAX) {
+        counter = 0
+        if (change == -1) {
+            change = 1
+        } else {
+            change = -1
         }
+    }
+    counter = counter + 1
+    led.plotBrightness(x, y, 255)
+    basic.pause(100)
+    led.plotBrightness(x, y, 0)
+    x = x + change
+    if (x < 0 || x > 4) {
         if (change == 1) {
             x = 0
         } else {
